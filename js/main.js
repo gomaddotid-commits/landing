@@ -244,6 +244,43 @@ async function loadComponent(id, path, callback) {
 }
 
 // ============================================================
+// 8. LOAD FLOATING WHATSAPP
+// ============================================================
+
+async function loadWhatsApp() {
+    await loadComponent('whatsapp-container', '/components/whatsapp.html', () => {
+        setupWhatsAppTooltip();
+    });
+}
+
+function setupWhatsAppTooltip() {
+    const button = document.getElementById('wa-button');
+    const tooltip = document.getElementById('wa-tooltip');
+    if (!button || !tooltip) return;
+
+    // Tampilkan tooltip saat hover
+    button.addEventListener('mouseenter', () => {
+        tooltip.classList.remove('opacity-0', 'translate-y-2');
+        tooltip.classList.add('opacity-100', 'translate-y-0');
+    });
+
+    button.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('opacity-100', 'translate-y-0');
+        tooltip.classList.add('opacity-0', 'translate-y-2');
+    });
+
+    // Tampilkan tooltip 2 detik setelah halaman dimuat (untuk first-time user)
+    setTimeout(() => {
+        tooltip.classList.remove('opacity-0', 'translate-y-2');
+        tooltip.classList.add('opacity-100', 'translate-y-0');
+        setTimeout(() => {
+            tooltip.classList.remove('opacity-100', 'translate-y-0');
+            tooltip.classList.add('opacity-0', 'translate-y-2');
+        }, 4000);
+    }, 2000);
+}
+
+// ============================================================
 // 6. INISIALISASI UTAMA
 // ============================================================
 
@@ -257,6 +294,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateThemeUI(document.documentElement.getAttribute('data-theme'));
     });
     await loadComponent('footer-container', '/components/footer.html');
+
+    await loadWhatsApp();
 
     // Init router & theme
     initRouter();
