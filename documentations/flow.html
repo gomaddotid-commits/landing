@@ -1,0 +1,277 @@
+<section class="py-4">
+    <nav class="text-sm text-gray-500 mb-6">
+        <a href="#/docs" class="hover:text-primary transition">Dokumentasi</a> / Flow Bisnis
+    </nav>
+
+    <h1 class="text-4xl font-black text-textMain mb-4">🔀 Flow Bisnis GoMad</h1>
+    <p class="text-gray-600 mb-8">Diagram interaktif alur bisnis GoMad dari registrasi hingga settlement.</p>
+
+    <!-- 1. Flow Registrasi & Verifikasi -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">1. Flow Registrasi & Verifikasi</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    subgraph Customer
+                        C[Registrasi Customer] --> C1[Pilih Role: Customer]
+                        C1 --> C2[Isi Nama, Email, HP, Password]
+                        C2 --> C3[Atau Google Login]
+                        C3 --> C4[Akun Aktif]
+                        C4 --> C5[Redirect ke /customer/setup]
+                        C5 --> C6[Wajib isi WhatsApp]
+                    end
+
+                    subgraph Agency
+                        A[Registrasi Agency] --> A1[Pilih Role: Agency]
+                        A1 --> A2[Isi data & upload dokumen]
+                        A2 --> A3[Ajukan Verifikasi]
+                        A3 --> A4{Pending}
+                        A4 --> A5[Admin Approve]
+                        A5 --> A6[Agency Aktif]
+                        A4 --> A7[Admin Reject]
+                        A7 --> A8[Setup Ulang]
+                    end
+
+                    subgraph Warung
+                        W[Registrasi Warung] --> W1[Pilih Role: Warung]
+                        W1 --> W2[Isi data & PIN]
+                        W2 --> W3[Setup Profil]
+                        W3 --> W4[Verifikasi Admin]
+                        W4 --> W5[Bisa Terima Pembayaran]
+                    end
+
+                    subgraph Driver
+                        D[Driver] --> D1[Tidak bisa daftar sendiri]
+                        D1 --> D2[Agency buat akun driver]
+                        D2 --> D3[Driver login]
+                    end
+            </pre>
+        </div>
+    </div>
+
+    <!-- 2. Flow Booking & Pembayaran -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">2. Flow Booking & Pembayaran</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Customer[Customer Login] --> Search[Cari Jadwal]
+                    Search --> Book[Klik Booking]
+                    Book --> Step1[Pilih Kota Penjemputan]
+                    Step1 --> Step2[Isi Alamat Penjemputan]
+                    Step2 --> Step3[Pilih Kota Tujuan]
+                    Step3 --> Step4[Isi Data Penumpang]
+                    Step4 --> Create[Klik Buat Booking]
+                    Create --> Detail[Halaman Detail Booking]
+                    Detail --> Payment{Pilih Pembayaran}
+
+                    Payment --> Online[Bayar Online Midtrans]
+                    Online --> Popup[Popup Midtrans]
+                    Popup --> Paid[Booking PAID]
+
+                    Payment --> Warung[Bayar di Warung]
+                    Warung --> Code[Generate Kode Bayar]
+                    Code --> Show[Tampil Kode + Peta]
+                    Show --> Confirm[Warung Konfirmasi]
+                    Confirm --> Paid
+
+                    Payment --> COD[Bayar COD]
+                    COD --> Validasi[Validasi COD]
+                    Validasi --> Hold[Hold Deposit Agency]
+                    Hold --> DriverConfirm[Driver Konfirmasi COD]
+                    DriverConfirm --> Paid
+
+                    Paid --> ETicket[E-Ticket Tersedia]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 3. Flow Perjalanan (Driver) -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">3. Flow Perjalanan (Driver)</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Agency[Agency] --> Start[Klik Mulai Jadwal]
+                    Start --> Notif[Notifikasi ke Driver]
+                    Notif --> Driver[Driver Login]
+                    Driver --> List[Lihat Daftar Booking]
+
+                    List --> Pickup[Jemput Penumpang]
+                    Pickup --> Dropoff[Antar ke Tujuan]
+                    Dropoff --> COD{Cek COD?}
+                    COD -->|Ya| ConfirmCOD[Konfirmasi COD]
+                    COD -->|Tidak| Finish[Booking Selesai]
+                    ConfirmCOD --> Finish
+
+                    Finish --> AllDone[Semua Booking Selesai]
+                    AllDone --> Complete[Klik Selesaikan Perjalanan]
+                    Complete --> Release[Release Funds ke Wallet Agency]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 4. Flow Pembayaran Cash (Warung) -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">4. Flow Pembayaran Cash (Warung)</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Customer[Customer dengan Kode Bayar] --> Warung[Warung Login]
+                    Warung --> InputKode[Masukkan Kode Bayar]
+                    InputKode --> Validasi{Valid?}
+                    Validasi -->|Ya| InputPIN[Masukkan PIN]
+                    InputPIN --> Verifikasi{Verifikasi PIN}
+                    Verifikasi -->|Cocok| Confirm[Klik Konfirmasi Pembayaran]
+                    Confirm --> Update[Update Database]
+                    Update --> Notif[Notifikasi WhatsApp ke Customer]
+                    Update --> ETicket[E-Ticket Tersedia]
+
+                    Validasi -->|Tidak| Error1[Tampil Error]
+                    Verifikasi -->|Tidak| Error2[Tampil Error]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 5. Flow COD -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">5. Flow COD</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Customer[Pilih COD] --> Validasi{Cek Kelayakan}
+                    Validasi -->|Ya| Book[Booking CONFIRMED]
+                    Book --> Hold[Hold COD Balance]
+                    Hold --> Day[Hari H]
+                    Day --> Pickup[Driver Jemput]
+                    Pickup --> Pay[Customer Bayar CASH]
+                    Pay --> Drop[Driver Antar ke Tujuan]
+                    Drop --> Confirm[Driver Konfirmasi COD]
+                    Confirm --> Release[Release COD Hold]
+                    Release --> Paid[Booking PAID]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 6. Flow Transfer Penumpang -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">6. Flow Transfer Penumpang</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Agency[Agency] --> Transfer[Klik Transfer pada Jadwal]
+                    Transfer --> Select[Centang Booking]
+                    Select --> Search[Cari Mobil Tujuan]
+                    Search --> List[Tampil Daftar Jadwal Tersedia]
+                    List --> Choose[Pilih Jadwal Tujuan]
+                    Choose --> Internal{Internal Transfer?}
+                    Internal -->|Ya| Approve[Approved]
+                    Internal -->|Tidak| External[External Transfer PENDING]
+                    External --> Wait[Menunggu Approval Agency Tujuan]
+                    Wait -->|Approve| Approve
+                    Wait -->|Reject| Reject[Reject]
+                    Approve --> Move[Booking Dipindahkan]
+                    Move --> Notif[Notifikasi ke Customer]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 7. Flow Wallet & Withdrawal -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">7. Flow Wallet & Withdrawal</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Complete[Booking COMPLETED] --> Release[Release Funds]
+                    Release --> Wallet[Wallet Agency]
+                    Wallet --> Available[Saldo Tersedia]
+                    Wallet --> Pending[Saldo Pending]
+                    Wallet --> Deposit[Saldo Deposit]
+
+                    Available --> Withdrawal[Ajukan Withdrawal]
+                    Withdrawal --> Check{Total Withdrawal}
+                    Check -->|< 5 Juta| Auto[Auto Approve]
+                    Check -->|≥ 5 Juta| Manual[Pending Admin]
+                    Auto --> Process[Processing]
+                    Manual --> Approve[Admin Approve]
+                    Manual --> Reject[Admin Reject]
+                    Approve --> Process
+                    Reject --> Return[Dana Dikembalikan]
+                    Process --> Complete2[Withdrawal COMPLETED]
+
+                    Deposit --> TopUp[Top Up Deposit]
+                    TopUp --> Bayar[Bayar via Midtrans]
+                    Bayar --> Add[Deposit Bertambah]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 8. Flow Settlement Warung -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">8. Flow Settlement Warung</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Cron[Senin 00:01] --> Generate[Generate Settlement]
+                    Generate --> Check{Cek Transaksi}
+                    Check -->|Ada| Create[Buat Settlement]
+                    Check -->|Tidak| Skip[Skip]
+
+                    Create --> StatusPENDING[Status PENDING]
+                    StatusPENDING --> Bayar[Warung Bayar via Midtrans]
+                    Bayar --> StatusPAID[Status PAID]
+                    StatusPAID --> Verify[Admin Verifikasi]
+                    Verify --> Lunas[Status LUNAS]
+
+                    StatusPENDING --> Overdue[> 7 Hari]
+                    Overdue --> StatusOVERDUE[Status OVERDUE]
+            </pre>
+        </div>
+    </div>
+
+    <!-- 9. Flow Refund & Pembatalan -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">9. Flow Refund & Pembatalan</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    Cancel[Customer Batalkan Booking] --> Status{Cek Status}
+                    Status -->|PENDING| CancelImmed[Booking CANCELLED]
+                    Status -->|CONFIRMED| CancelImmed
+                    Status -->|PAID| CheckTime{Cek Keberangkatan}
+                    CheckTime -->|> 24 Jam| Hitung[Hitung Biaya Pembatalan]
+                    CheckTime -->|≤ 24 Jam| NotAllowed[Tidak Bisa Cancel]
+
+                    Hitung --> Refund[Proses Refund]
+                    Refund --> Midtrans[Refund via Midtrans]
+                    Midtrans --> Berhasil[Refund Berhasil]
+                    Midtrans --> Gagal[Refund Gagal]
+                    Gagal --> Admin[Manual Refund oleh Admin]
+                    Berhasil --> BookingCancelled[Booking CANCELLED]
+                    Admin --> BookingCancelled
+            </pre>
+        </div>
+    </div>
+
+    <!-- 10. Flow Referral -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-textMain mb-4">10. Flow Referral</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    A[Customer A] --> Code[Punya Kode Referral]
+                    Code --> Share[Bagikan ke Teman]
+                    Share --> B[Customer B Daftar]
+                    B --> First[Customer B Booking Pertama]
+                    First --> Success[Pembayaran Sukses]
+                    Success --> Trigger[Trigger Referral Reward]
+                    Trigger --> Check{Cek Transaksi}
+                    Check --> Diskon[Hitung Diskon]
+                    Diskon --> Promo[Buat Promo REFERRAL]
+                    Promo --> A2[Customer A Dapat Diskon]
+                    A2 --> Use[Pakai di Booking Berikutnya]
+                    Success --> Track[ReferralTracking: is_successful = true]
+            </pre>
+        </div>
+    </div>
+</section>

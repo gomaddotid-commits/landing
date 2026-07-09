@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GoMad - Solusi Transportasi Antar Kota. Platform booking tiket, manajemen travel, dan layanan door-to-door." />
+    <meta name="keywords" content="GoMad, transportasi, booking travel, door-to-door, platform travel" />
+    <meta property="og:title" content="GoMad - Solusi Transportasi Antar Kota" />
+    <meta property="og:description" content="Platform booking travel antar kota dengan door-to-door service. Untuk Customer, Agency, Driver, dan Warung." />
+    <meta property="og:image" content="/assets/images/og-image.jpg" />
+    <meta property="og:url" content="https://gomad.cloud" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico" />
+    <title>GoMad - Solusi Transportasi Antar Kota</title>
+
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Geist Sans & Geist Mono (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Sans:wght@400;500;700;900&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <!-- Mermaid.js -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Tailwind custom config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Geist Sans"', 'sans-serif'],
+                        mono: ['"Geist Mono"', 'monospace'],
+                    },
+                    colors: {
+                        primary: '#C1121F',
+                        bgMain: '#FFFFFF',
+                        bgSubtle: '#F5F5F5',
+                        textMain: '#111111',
+                        borderColor: '#E5E5E5',
+                    },
+                    borderRadius: {
+                        custom: '12px',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+<body>
+
+    <!-- ====== HEADER ====== -->
+    <div id="header-container"></div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main id="app" class="min-h-screen pt-20 pb-12 px-4 md:px-8 max-w-6xl mx-auto">
+        <!-- Konten akan di-render oleh SPA Router -->
+        <div id="content"></div>
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <div id="footer-container"></div>
+
+    <!-- ====== SPA ROUTER & THEME ====== -->
+    <script src="/js/main.js"></script>
+
+    <!-- Inisialisasi awal -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initRouter();
+            initTheme();
+            initMermaid();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<section class="py-4">
+    <nav class="text-sm text-gray-500 mb-6">
+        <a href="#/docs" class="hover:text-primary transition">Dokumentasi</a> / Warung GoMad
+    </nav>
+
+    <h1 class="text-4xl font-black text-textMain mb-4">📚 Dokumentasi Warung GoMad</h1>
+    <p class="text-gray-600 mb-8">Panduan lengkap untuk Payment Agent / Warung GoMad.</p>
+
+    <div class="bg-bgSubtle p-6 rounded-custom border border-borderColor mb-8">
+        <h2 class="text-lg font-bold text-textMain mb-3">Daftar Isi</h2>
+        <ul class="space-y-1 text-sm text-gray-600">
+            <li><a href="#daftar" class="hover:text-primary transition">1. Cara Mendaftar</a></li>
+            <li><a href="#setup" class="hover:text-primary transition">2. Setup Profil Warung</a></li>
+            <li><a href="#verifikasi" class="hover:text-primary transition">3. Verifikasi Warung</a></li>
+            <li><a href="#terima-pembayaran" class="hover:text-primary transition">4. Menerima Pembayaran</a></li>
+            <li><a href="#riwayat" class="hover:text-primary transition">5. Riwayat Pembayaran</a></li>
+            <li><a href="#settlement" class="hover:text-primary transition">6. Settlement</a></li>
+            <li><a href="#profil" class="hover:text-primary transition">7. Profil & Statistik</a></li>
+        </ul>
+    </div>
+
+    <div class="space-y-8">
+        <div id="daftar">
+            <h2 class="text-2xl font-bold text-textMain mb-2">1. Cara Mendaftar</h2>
+            <ol class="list-decimal pl-5 space-y-1 text-gray-600">
+                <li>Buka <code>web.gomad.id/register</code></li>
+                <li>Pilih <strong>Warung GoMad</strong></li>
+                <li>Isi: Nama pemilik, Email, HP, Nama warung, Alamat, PIN (6 digit), Password</li>
+                <li>Klik <strong>Daftar Sekarang</strong></li>
+            </ol>
+        </div>
+
+        <div id="setup">
+            <h2 class="text-2xl font-bold text-textMain mb-2">2. Setup Profil Warung</h2>
+            <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Lengkapi: Nama warung, Alamat, Kecamatan, Link Google Maps, PIN</li>
+                <li>Klik <strong>Simpan & Ajukan Verifikasi</strong></li>
+            </ul>
+        </div>
+
+        <div id="verifikasi">
+            <h2 class="text-2xl font-bold text-textMain mb-2">3. Verifikasi Warung</h2>
+            <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                <li><strong>Pending:</strong> Menunggu review admin</li>
+                <li><strong>Ditolak:</strong> Perbaiki data, setup ulang</li>
+                <li><strong>Terverifikasi:</strong> Bisa menerima pembayaran</li>
+            </ul>
+        </div>
+
+        <div id="terima-pembayaran">
+            <h2 class="text-2xl font-bold text-textMain mb-2">4. Menerima Pembayaran</h2>
+            <ol class="list-decimal pl-5 space-y-1 text-gray-600">
+                <li>Customer datang dengan kode bayar (format: WM-YYYYMMDD-XXXXXX)</li>
+                <li>Buka halaman <strong>Pembayaran</strong></li>
+                <li>Masukkan <strong>Kode Bayar</strong></li>
+                <li>Masukkan <strong>PIN</strong> (6 digit)</li>
+                <li>Klik <strong>Konfirmasi Pembayaran</strong></li>
+                <li>Terima uang CASH dari customer</li>
+            </ol>
+        </div>
+
+        <div id="riwayat">
+            <h2 class="text-2xl font-bold text-textMain mb-2">5. Riwayat Pembayaran</h2>
+            <p class="text-gray-600">Lihat semua transaksi yang sudah dikonfirmasi. Filter: Hari ini, Bulan ini, Semua. Ringkasan: Total transaksi, Total komisi, Sisa yang harus disetor.</p>
+        </div>
+
+        <div id="settlement">
+            <h2 class="text-2xl font-bold text-textMain mb-2">6. Settlement</h2>
+            <ol class="list-decimal pl-5 space-y-1 text-gray-600">
+                <li>Setiap hari Senin, sistem membuat tagihan settlement</li>
+                <li>Klik <strong>Settlement</strong> → lihat tagihan</li>
+                <li>Klik <strong>Bayar Sekarang</strong> → bayar via Midtrans</li>
+                <li>Status berubah: Menunggu Verifikasi → Lunas</li>
+            </ol>
+        </div>
+
+        <div id="profil">
+            <h2 class="text-2xl font-bold text-textMain mb-2">7. Profil & Statistik</h2>
+            <ul class="list-disc pl-5 space-y-1 text-gray-600">
+                <li>Total transaksi</li>
+                <li>Total komisi</li>
+                <li>Sisa yang harus disetor</li>
+                <li>Status verifikasi</li>
+            </ul>
+        </div>
+    </div>
+</section>

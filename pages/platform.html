@@ -1,0 +1,37 @@
+<section class="py-12">
+    <h1 class="text-3xl md:text-5xl font-black text-textMain mb-6">Platform GoMad</h1>
+    <p class="text-base md:text-lg text-gray-600 max-w-3xl mb-8">
+        GoMad adalah platform transportasi antar kota yang menghubungkan <strong>Penumpang</strong>, <strong>Agency</strong>, <strong>Driver</strong>, dan <strong>Warung GoMad</strong> dalam satu ekosistem digital.
+    </p>
+
+    <div class="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8 mt-8">
+        <div class="bg-bgSubtle p-4 md:p-6 rounded-custom border border-borderColor">
+            <h3 class="text-lg md:text-xl font-bold text-textMain mb-2">- Visi</h3>
+            <p class="text-xs md:text-sm text-gray-600">Menjadi platform transportasi antar kota terdepan di Indonesia dengan layanan door-to-door yang mudah, cepat, dan terpercaya.</p>
+        </div>
+        <div class="bg-bgSubtle p-4 md:p-6 rounded-custom border border-borderColor">
+            <h3 class="text-lg md:text-xl font-bold text-textMain mb-2">- Misi</h3>
+            <p class="text-xs md:text-sm text-gray-600">Menyediakan ekosistem digital yang menguntungkan semua pihak: penumpang nyaman, agency berkembang, driver terarah, dan warung menjadi mitra pembayaran.</p>
+        </div>
+    </div>
+
+    <div class="mt-12">
+        <h2 class="text-2xl font-bold text-textMain mb-6">Ekosistem GoMad</h2>
+        <div class="bg-white p-6 rounded-custom border border-borderColor">
+            <pre class="mermaid">
+                graph TD
+                    A[Customer] --> B[Booking]
+                    B --> C{Pilih Pembayaran}
+                    C --> D[Online Midtrans]
+                    C --> E[Cash di Warung]
+                    C --> F[COD ke Sopir]
+                    D --> G[Booking PAID]
+                    E --> G
+                    F --> G
+                    G --> H[Driver Jemput]
+                    H --> I[Perjalanan Selesai]
+                    I --> J[Review & Rating]
+            </pre>
+        </div>
+    </div>
+</section>
